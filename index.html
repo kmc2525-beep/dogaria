@@ -21,42 +21,38 @@
 <body>
   <header>
     <h1>Dogaria</h1>
-    <p>犬のおしっこ記録から縄張りを可視化する</p>
+    <p>犬のおしっこ記録から、推定高さと位置で縄張りを可視化します。</p>
   </header>
 
   <main>
     <section class="panel">
-      <h2>記録を追加</h2>
+      <h2>記録追加</h2>
 
-      <label>犬の名前</label>
+      <label for="dogName">犬の名前</label>
       <input id="dogName" type="text" placeholder="例: ポチ" />
 
-      <label>画像アップロード</label>
+      <label for="imageInput">画像アップロード</label>
       <input id="imageInput" type="file" accept="image/*" />
 
-      <label>マーカーの実寸（cm）</label>
-      <input id="markerHeightCm" type="number" value="10" min="1" step="0.1" />
-
       <p class="hint">
-        画像上で順にタップ:
-        <br>1. 地面
-        <br>2. おしっこ最高点
-        <br>3. マーカー下端
-        <br>4. マーカー上端
+        撮影の推奨: 15cm定規を電柱側面に縦向きで密着して撮影してください。<br />
+        画像上で次の順に4点をタップ: <strong>地面 → 最高点 → 定規下端 → 定規上端</strong>
       </p>
 
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" aria-label="計測用キャンバス"></canvas>
 
       <div class="button-row">
-        <button id="resetPointsBtn" type="button">点をリセット</button>
-        <button id="saveBtn" type="button">保存</button>
+        <button id="autoDetectBtn" type="button">定規自動検出（補助）</button>
+        <button id="resetPointsBtn" type="button">点リセット</button>
+        <button id="saveBtn" type="button" class="primary">保存</button>
       </div>
 
-      <div id="status"></div>
+      <div id="status" class="status" aria-live="polite"></div>
     </section>
 
     <section class="panel">
-      <h2>縄張りマップ</h2>
+      <h2>地図 / 縄張り</h2>
+      <p class="hint">円は各記録の影響範囲、格子色は現在表示範囲での優勢犬（近似）です。</p>
       <div id="map"></div>
       <p class="osm-note">© OpenStreetMap contributors</p>
     </section>
